@@ -12,11 +12,13 @@ Editor for i18n JSON files
 * UI
 * Синхронизация проекта и файлов (git, drive, etc)
 * Поддержка нескольких пользователей и совместное использование
+* Рефакторинг
+* Поддержка и преобразование в разные форматы
 
 ## План
 
 Backend - Golang
-Frontend - Typescript + Angular
+Frontend - Typescript + VueJS
 Database - Mongo
 
 ## Структура данных
