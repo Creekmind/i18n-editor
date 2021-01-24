@@ -3,6 +3,8 @@
   <div v-for="project in projects" :key="project.id">
     {{ project }}
   </div>
+
+  <button @click="create">New project</button>
 </template>
 
 <script lang="ts">
@@ -19,14 +21,20 @@ import { ProjectApiService } from '@/api/project';
 })
 export default class ProjectList extends Vue {
   projects: Project[] = [];
+  api = ProjectApiService.new();
 
   mounted() {
     this.refresh();
   }
 
+  create() {
+    this.api.create(new Project('', 'Testing')).subscribe(() => {
+      this.refresh();
+    });
+  }
+
   private refresh() {
-    const api = ProjectApiService.new();
-    api.find().subscribe((projects: Project[]) => {
+    this.api.find().subscribe((projects: Project[]) => {
       this.projects = projects;
     });
   }

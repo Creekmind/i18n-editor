@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import Axios from 'axios-observable';
 import { Params } from '@/api/interfaces/params';
 import { map } from 'rxjs/operators';
-import { unbox } from '@cmind/class-mapper';
+import { box, unbox } from '@cmind/class-mapper';
 
 export class BaseApiService<T> {
 
@@ -29,7 +29,7 @@ export class BaseApiService<T> {
   }
 
   create(data: T, params?: Params): Observable<T> {
-    return Axios.post(this.baseURL, { params }).pipe(
+    return Axios.post(this.baseURL, box<T>(data), { params }).pipe(
       map((response) => {
         return unbox<T>(response.data, this.cls)
       })

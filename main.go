@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 import "i18n-editor/cmd"
 
 func main() {

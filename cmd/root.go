@@ -3,7 +3,7 @@ package cmd
 import "github.com/spf13/cobra"
 
 var rootCmd = &cobra.Command{
-	Short: "Console for Mirror Worlds backend",
+	Short: "i18n-editor",
 }
 
 func Execute() error {

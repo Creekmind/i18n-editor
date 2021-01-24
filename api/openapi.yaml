@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: i18n-editor
+  description: Editor for i18n files
+  version: 1.0.0
+servers:
+  - url: 'http'
+paths:
+  /projects:
+    get:
+      summary: Return list of projects
+      responses:
+        '200':
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+        '500':
+          description: Internal server error
+
+ /projects/{projectID}:
+   get:
+     summary: Return project by ID
+     parameters:
+       - name: projectID
+         in: path
+         required: true
+         description: ID of the requested project
+         schema:
+           type: string
+           format: string
+           minLength: 1
+     responses:
+       '200':
+         description: Project instance
+         content:
+           application/json:
+             schema:
+               type: object
+       '404':
+         description: Project not found
+       '500':
+         description: Internal server error
+
