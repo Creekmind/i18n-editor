@@ -12,17 +12,20 @@ const (
 )
 
 type Project struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	CreateDate int64  `json:"createDate"`
-	UpdateDate int64  `json:"updateDate"`
+	ID         string     `json:"id"`
+	Name       string     `json:"name"`
+	Languages  []Language `json:"languages"`
+	CreateDate int64      `json:"createDate"`
+	UpdateDate int64      `json:"updateDate"`
 }
 
 func GetProjects() ([]Project, error) {
 	projects := make([]Project, 0)
 	err := db.View(func(tx *bolt.Tx) error {
 		return getProjectBucket(tx).ForEach(func(key, value []byte) error {
-			project := Project{}
+			project := Project{
+				Languages: make([]Language, 0),
+			}
 			if err := json.Unmarshal(value, &project); err != nil {
 				return err
 			}

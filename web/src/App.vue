@@ -1,12 +1,9 @@
 <template>
-  <i18n-project-list></i18n-project-list>
-
-<!--  <router-link to="/">Home</router-link> |-->
-<!--  <router-view />-->
+  <router-view />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Options, Vue } from 'vue-class-component';
 import ProjectList from '@/components/ProjectList.vue';
 
 @Options({
@@ -22,6 +19,6 @@ export default class Application extends Vue {
 
 <style lang="scss">
 
-  @import "scss/theme.scss";
+@import 'scss/theme.scss';
 
 </style>

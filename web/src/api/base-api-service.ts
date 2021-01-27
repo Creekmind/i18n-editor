@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import Axios from 'axios-observable';
 import { Params } from '@/api/interfaces/params';
 import { map } from 'rxjs/operators';
@@ -23,17 +23,17 @@ export class BaseApiService<T> {
   findOne(id: string, params?: Params): Observable<T> {
     return Axios.get(`${this.baseURL}/${id}`, { params }).pipe(
       map((response) => {
-        return unbox<T>(response.data, this.cls)
+        return unbox<T>(response.data, this.cls);
       })
-    )
+    );
   }
 
   create(data: T, params?: Params): Observable<T> {
     return Axios.post(this.baseURL, box<T>(data), { params }).pipe(
       map((response) => {
-        return unbox<T>(response.data, this.cls)
+        return unbox<T>(response.data, this.cls);
       })
-    )
+    );
   }
 
 }
