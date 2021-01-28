@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
 	"github.com/spf13/cobra"
-	"i18n-editor/api"
+	"i18n-editor/internal/api"
+	"i18n-editor/internal/models"
 	"i18n-editor/internal/storage"
 )
 
@@ -19,6 +20,11 @@ func startWebServer() {
 	api.StartRouter()
 
 	if err := storage.Init(dbFile); err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	if err := models.Migrate(); err != nil {
 		fmt.Println(err.Error())
 		return
 	}

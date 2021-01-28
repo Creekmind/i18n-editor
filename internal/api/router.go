@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/beego/beego/v2/server/web"
-	"i18n-editor/api/controllers"
+	"i18n-editor/internal/controllers"
 )
 
 func StartRouter() {

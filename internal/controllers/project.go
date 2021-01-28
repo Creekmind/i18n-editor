@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/beego/beego/v2/server/web"
-	"i18n-editor/internal/storage"
+	"i18n-editor/internal/models"
 )
 
 type projectController struct {
@@ -12,7 +12,7 @@ type projectController struct {
 }
 
 func (r projectController) Get() {
-	projects, err := storage.GetProjects()
+	projects, err := models.GetProjects()
 
 	if err != nil {
 		fmt.Println(err.Error())
@@ -29,7 +29,7 @@ func (r projectController) Get() {
 }
 
 func (r projectController) Post() {
-	project := storage.Project{}
+	project := models.Project{}
 
 	if err := json.Unmarshal(r.Ctx.Input.RequestBody, &project); err != nil {
 		fmt.Println(err.Error())
@@ -37,7 +37,7 @@ func (r projectController) Post() {
 		return
 	}
 
-	if err := storage.CreateProject(&project); err != nil {
+	if err := models.CreateProject(&project); err != nil {
 		r.Abort("500")
 		return
 	}
