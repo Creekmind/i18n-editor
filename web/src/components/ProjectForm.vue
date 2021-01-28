@@ -55,9 +55,9 @@ export default class ProjectForm extends Vue {
   }
 
   getProject(id: string) {
-    this.api.find().subscribe(projects => {
-      this.project = projects.find(p => p.id === id) ?? new Project()
-      console.log('opened project', this.project, this.project.languages);
+    this.api.findOne(id).subscribe(project => {
+      this.project = project;
+      console.log('opened project', this.project);
     });
   }
 
