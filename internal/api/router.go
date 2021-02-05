@@ -12,4 +12,6 @@ func StartRouter() {
 	web.Router("/api/projects", controllers.NewProjectController(), "post:CreateProject")
 	web.Router("/api/projects", controllers.NewProjectController(), "get:GetProjects")
 	web.Router("/api/projects/:id", controllers.NewProjectController(), "get:GetProject")
+	web.Router("/api/projects/:id", controllers.NewProjectController(), "put:UpdateProject")
+	web.Router("/api/projects/:id", controllers.NewProjectController(), "delete:DeleteProject")
 }

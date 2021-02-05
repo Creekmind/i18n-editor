@@ -5,7 +5,7 @@ import (
     "errors"
     "github.com/boltdb/bolt"
     uuid "github.com/satori/go.uuid"
-    "time"
+    "i18n-editor/internal/helpers"
 )
 
 type Project struct {
@@ -56,7 +56,7 @@ func GetProject(tx *bolt.Tx, id string) (*Project, error) {
 func (r *Project) Create(tx *bolt.Tx) error {
     id := uuid.NewV4()
     r.ID = id.String()
-    r.CreateDate = time.Now().Unix()
+    r.CreateDate = helpers.NowMillis()
     r.UpdateDate = r.CreateDate
 
     value, err := r.GetValue()
@@ -68,7 +68,7 @@ func (r *Project) Create(tx *bolt.Tx) error {
 }
 
 func (r *Project) Update(tx *bolt.Tx) error {
-    r.UpdateDate = time.Now().Unix()
+    r.UpdateDate = helpers.NowMillis()
 
     value, err := r.GetValue()
     if err != nil {
@@ -89,6 +89,14 @@ func (r *Project) GetKey() []byte {
 
 func (r *Project) GetValue() ([]byte, error) {
     return json.Marshal(r)
+}
+
+func (r *Project) Delete(tx *bolt.Tx) error {
+    return getProjectBucket(tx).Delete(r.GetKey())
+}
+
+func (r *Project) Merge(project *Project) error {
+    return nil
 }
 
 func getProjectBucket(tx *bolt.Tx) *bolt.Bucket {

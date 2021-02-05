@@ -1,7 +1,6 @@
 import { boolean, string } from '@cmind/class-mapper/decorators';
 
 export class Language {
-
   @string()
   iso: string;
 
@@ -13,5 +12,4 @@ export class Language {
   constructor(iso: string) {
     this.iso = iso;
   }
-
 }

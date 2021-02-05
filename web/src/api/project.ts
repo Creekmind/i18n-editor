@@ -1,15 +1,12 @@
 import { Project } from '@/classes/project';
-import { BaseApiService } from '@/api/base-api-service';
+import { BaseApiService } from '@/api/base';
 
 export class ProjectApiService extends BaseApiService<Project> {
-
   private static instance: ProjectApiService;
 
   baseURL = '/api/projects'
 
-  private constructor() {
-    super(Project);
-  }
+  protected cls = Project;
 
   static new() {
     if (!this.instance) {
@@ -18,5 +15,4 @@ export class ProjectApiService extends BaseApiService<Project> {
 
     return this.instance;
   }
-
 }

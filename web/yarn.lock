@@ -992,10 +992,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cmind/class-mapper@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@cmind/class-mapper/-/class-mapper-0.0.9.tgz#f78a25e6062d58dc49fa37922389d3370c4bd7a0"
-  integrity sha512-Av5C1nwiQY47874lowSBGjirjssCfUPnEP3DvBkJldSQYyEFOGufevyWXfA/nHDk3p+mc3CZiaVJg657waMMLw==
+"@cmind/class-mapper@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@cmind/class-mapper/-/class-mapper-0.0.10.tgz#5abf749af9cf688253207290a3f16ccd7fb9fad9"
+  integrity sha512-IlVEeUYWZ27m4f2G7VA9j2uhIFR+EWAPbIwoO56Eiswzqykj9IwYaYvlrC+bqhDh7rmjjJAM5PXozDg43JuaZg==
   dependencies:
     reflect-metadata "^0.1.13"
 

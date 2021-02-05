@@ -1,10 +1,8 @@
 import { array, string } from '@cmind/class-mapper/decorators';
 import { Language } from '@/classes/language';
+import { DataObject } from '@/classes/base/data-object';
 
-export class Project {
-  @string()
-  id: string;
-
+export class Project extends DataObject {
   @string()
   name: string;
 
@@ -12,7 +10,7 @@ export class Project {
   languages: Language[] = [];
 
   constructor(id = '', name = '') {
-    this.id = id;
+    super(id);
     this.name = name;
     this.languages = [];
   }

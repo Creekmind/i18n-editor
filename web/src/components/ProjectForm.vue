@@ -23,7 +23,10 @@
   </form>
 
   <div>
-    <button>Save</button>
+    <button @click="onSave">Save</button>
+  </div>
+  <div>
+    <button @click="onDelete">Delete</button>
   </div>
 </template>
 
@@ -57,12 +60,23 @@ export default class ProjectForm extends Vue {
   getProject(id: string) {
     this.api.findOne(id).subscribe(project => {
       this.project = project;
-      console.log('opened project', this.project);
     });
   }
 
   onAddLanguageClick() {
     this.project.languages.push(new Language(''));
+  }
+
+  onSave() {
+    this.api.save(this.project).subscribe((project) => {
+      this.project = project;
+    });
+  }
+
+  onDelete() {
+    this.api.delete(this.project).subscribe(() => {
+      // TODO redirect to list
+    });
   }
 }
 </script>

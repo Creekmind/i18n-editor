@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@cmind/class-mapper": "^0.0.9",
+    "@cmind/class-mapper": "^0.0.10",
     "@vue/cli": "^4.5.10",
     "axios": "^0.21.1",
     "axios-observable": "^1.1.6",
