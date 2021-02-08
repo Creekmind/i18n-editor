@@ -1,33 +1,30 @@
 <template>
-  <form v-if="project">
-    <div>
-      <label>ID</label>
-      <input readonly v-model="project.id">
-    </div>
+  <v-form v-if="project" label-width="120px">
+    <v-form-item label="Name">
+      <v-input v-model="project.name"></v-input>
+    </v-form-item>
 
-    <div>
-      <label>Name</label>
-      <input v-model="project.name">
-    </div>
+    <v-form-item label="Languages">
 
-    <div>
-      <label>Languages</label>
       <div v-for="(language, index) in project.languages" :key="index">
-        <input v-model="language.iso">
+        <i class="el-icon-star-off trigger not-primary-language" v-if="!language.isPrimary" title="Make primary" @click.prevent="onStarClick(language)"></i>
+        <i class="el-icon-star-on trigger primary-language" type="warning" v-if="language.isPrimary"></i>
+
+        <v-select v-model="language.iso" filterable placeholder="Select">
+          <v-option v-for="iso in languageISO" :key="iso" :label="iso" :value="iso"></v-option>
+        </v-select>
+
+        <i class="el-icon-delete delete-language" v-if="index" @click="onDeleteLanguageClick(language)" title="Delete language"></i>
       </div>
-    </div>
+      <v-button type="primary" @click="onAddLanguageClick">Add language</v-button>
+    </v-form-item>
 
-    <div>
-      <button type="button" @click="onAddLanguageClick">Add language</button>
-    </div>
-  </form>
+    <v-form-item>
+      <v-button type="primary" @click="onSave">Save</v-button>
+      <v-button @click="onDelete">Delete</v-button>
+    </v-form-item>
+  </v-form>
 
-  <div>
-    <button @click="onSave">Save</button>
-  </div>
-  <div>
-    <button @click="onDelete">Delete</button>
-  </div>
 </template>
 
 <script lang="ts">
@@ -38,18 +35,25 @@ import { Project } from '@/classes/project';
 import { Language } from '@/classes/language';
 
 @Options({
-  name : 'i18n-project-form',
-  props: {
+  name      : 'i18n-project-form',
+  props     : {
     id: String
   },
-  watch: {
+  watch     : {
     id: 'getProject'
+  },
+  components: {
   }
 })
 export default class ProjectForm extends Vue {
   id!: string;
   name!: string;
   project = new Project();
+
+  readonly languageISO = [
+    'en-EN',
+    'ru-RU'
+  ];
 
   private api = ProjectApiService.new();
 
@@ -64,7 +68,21 @@ export default class ProjectForm extends Vue {
   }
 
   onAddLanguageClick() {
-    this.project.languages.push(new Language(''));
+    if (!this.project.languages.length) {
+      const english = new Language(this.languageISO[0], true);
+      this.project.languages.push(english);
+      return;
+    }
+
+    const language = new Language('');
+    this.project.languages.push(language);
+  }
+
+  onDeleteLanguageClick(language: Language) {
+    const index = this.project.languages.indexOf(language);
+    if (index >= 0) {
+      this.project.languages.splice(index, 1);
+    }
   }
 
   onSave() {
@@ -78,9 +96,31 @@ export default class ProjectForm extends Vue {
       // TODO redirect to list
     });
   }
+
+  onStarClick(language: Language) {
+    this.project.languages.forEach(l => {
+      l.isPrimary = false
+    });
+    language.isPrimary = true;
+  }
 }
 </script>
 
 <style scoped lang="scss">
+.trigger {
+  margin-right: 8px;
 
+  &.primary-language {
+    color: #ffb42b;
+  }
+
+  &.not-primary-language {
+    cursor: pointer;
+  }
+}
+
+.delete-language {
+  margin-left: 8px;
+  cursor: pointer;
+}
 </style>

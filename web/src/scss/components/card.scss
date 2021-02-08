@@ -1,0 +1,21 @@
+@import "variables";
+
+.cm-card {
+  display: inline-block;
+  box-shadow: 0px 0px 3px 2px $boxShadow;
+  padding: 8px 0px;
+
+  .cm-card-header {
+    font-weight: 500;
+    background-color: $primaryText;
+  }
+
+  .cm-card-content {
+    padding: 8px 0px;
+  }
+
+  .cm-card-footer {
+  }
+}
+
+

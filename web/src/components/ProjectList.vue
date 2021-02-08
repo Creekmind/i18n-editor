@@ -1,18 +1,19 @@
 <template>
-  <h3>Projects</h3>
-  <div v-for="project in projects" :key="project.id">
-    <router-link :to="`/projects/${project.id}`">
-      {{ project.id }}
-    </router-link>
-  </div>
+  <div class="cm-card">
+    <div class="cm-card-header px-12">Projects</div>
 
-  <div>
-    <router-link to="/projects/new">New project</router-link>
-  </div>
-  <div></div>
+    <div class="cm-card-content">
+      <div class="project p-12" v-for="project in projects" v-bind:key="project.id">
+        <div>{{ project.name }}</div>
+        <div class="cm-text small">Last updated at: {{ project.updateDate }}</div>
+      </div>
+    </div>
 
-  <div>
-    -------------------------------------------------------------------
+    <div class="cm-card-footer px-12">
+      <button class="cm-button" @click="onNewProjectClick">
+        New project
+      </button>
+    </div>
   </div>
 
   <div>
@@ -45,10 +46,12 @@ export default class ProjectList extends Vue {
     this.refresh();
   }
 
-  create() {
-    this.api.create(new Project('', 'Testing')).subscribe(() => {
-      this.refresh();
-    });
+  onRowClick(project: Project) {
+    this.$router.push({ path: `/projects/${project.id}` });
+  }
+
+  onNewProjectClick() {
+    this.$router.push('/projects/new');
   }
 
   private refresh() {
@@ -60,5 +63,22 @@ export default class ProjectList extends Vue {
 </script>
 
 <style scoped lang="scss">
+
+  @import "src/scss/components/variables";
+
+  .project {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
+
+    &:active {
+      background-color: $primaryText;
+    }
+
+    .project-date {
+    }
+  }
 
 </style>

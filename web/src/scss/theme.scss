@@ -1,4 +1,13 @@
+@import "components/button";
+@import "components/card";
+@import "layout";
+@import "components/text";
+
 body {
   height: 100%;
+  font-family: "Clarity City", sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  background-color: $primaryBackground;
 }
 

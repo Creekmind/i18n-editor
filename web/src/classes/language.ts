@@ -9,7 +9,8 @@ export class Language {
   @boolean()
   isPrimary = false;
 
-  constructor(iso: string) {
+  constructor(iso: string, isPrimary = false) {
     this.iso = iso;
+    this.isPrimary = isPrimary;
   }
 }

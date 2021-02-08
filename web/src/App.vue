@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">
@@ -19,6 +21,7 @@ export default class Application extends Vue {
 
 <style lang="scss">
 
+@import '~@cds/city/css/bundles/default.min.css'; // load base font
 @import 'scss/theme.scss';
 
 </style>

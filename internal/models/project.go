@@ -96,6 +96,8 @@ func (r *Project) Delete(tx *bolt.Tx) error {
 }
 
 func (r *Project) Merge(project *Project) error {
+    r.Name = project.Name
+    r.Languages = project.Languages
     return nil
 }
 

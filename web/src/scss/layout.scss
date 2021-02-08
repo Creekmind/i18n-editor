@@ -1,0 +1,13 @@
+@for $i from 0 through 24 {
+  .p-#{$i} {
+    padding: #{$i}px;
+  }
+
+  .px-#{$i} {
+    padding: 0px #{$i}px;
+  }
+
+  .py-#{$i} {
+    padding: #{$i}px 0px;
+  }
+}

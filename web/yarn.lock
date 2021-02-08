@@ -992,10 +992,15 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cmind/class-mapper@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@cmind/class-mapper/-/class-mapper-0.0.10.tgz#5abf749af9cf688253207290a3f16ccd7fb9fad9"
-  integrity sha512-IlVEeUYWZ27m4f2G7VA9j2uhIFR+EWAPbIwoO56Eiswzqykj9IwYaYvlrC+bqhDh7rmjjJAM5PXozDg43JuaZg==
+"@cds/city@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@cds/city/-/city-1.1.0.tgz#5b7323750d3d64671ce2e3a804bcf260fbea1154"
+  integrity sha512-S9K+Q39BGOghyLHmR0Wdcmu1i1noSUk8HcvMj+3IaohZw02WFd99aPTQDHJeseXrXZP3CNovaSlePI0R11NcFg==
+
+"@cmind/class-mapper@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@cmind/class-mapper/-/class-mapper-0.0.11.tgz#94bd779b60ab3c702d5f7a7929dc1dbf9910e790"
+  integrity sha512-rcqxHZMHn7yz+yJBmA2r2uZsxjv185EnPwXBp9FwVCq7yO5eZSJ3FCOwkJIZLrKzL/BvhKZz5DgKHENdvarWkA==
   dependencies:
     reflect-metadata "^0.1.13"
 
@@ -10094,6 +10099,11 @@ pretty-error@^2.0.2:
   dependencies:
     lodash "^4.17.20"
     renderkid "^2.0.4"
+
+primeicons@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.1.0.tgz#19eaef8ef5594b0006358ae64e738d03e167c9bb"
+  integrity sha512-uEv2pSPk1zQCfaB2VgnUfnUxxlGryYi+5rbdxmZBBt5v9S/pscIQYS5YDLxsQZ7D9jn5c76+Tx5wX/2J1nK6sA==
 
 prismjs@^1.20.0:
   version "1.23.0"

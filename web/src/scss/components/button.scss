@@ -1,0 +1,19 @@
+@import "variables";
+
+.cm-button {
+  padding: 8px 12px;
+  background-color: $primaryColor;
+  border-radius: 3px;
+  border: 0px;
+  color: $primaryText;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primaryLightBlue;
+  }
+
+  &:active {
+    background-color: $primaryDarkBlue;
+  }
+}
