@@ -15,6 +15,7 @@
     "axios-observable": "^1.1.6",
     "core-js": "^3.6.5",
     "global": "^4.4.0",
+    "moment": "^2.29.1",
     "primeicons": "^4.1.0",
     "rxjs": "^6.6.3",
     "vue": "^3.0.0",

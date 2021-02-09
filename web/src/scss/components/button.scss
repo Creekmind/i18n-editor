@@ -9,11 +9,40 @@
   outline: none;
   cursor: pointer;
 
+  line-height: 16px;
+  font-size: 14px;
+
+  &.icon {
+    display: flex;
+    align-content: center;
+
+    .cm-icon {
+      height: 16px;
+      width: 16px;
+      margin-right: 4px;
+    }
+  }
+
   &:hover {
-    background-color: $primaryLightBlue;
+    background-color: $primaryLight;
   }
 
   &:active {
-    background-color: $primaryDarkBlue;
+    background-color: $primaryDark;
   }
+
+  &.outline {
+    background-color: $primaryText;
+    border: 1px $primaryColor solid;
+    color: $primaryLight;
+
+    &:hover {
+      background-color: #e6e6e6;
+    }
+
+    &:active {
+      background-color: $secondaryDark;
+    }
+  }
+
 }

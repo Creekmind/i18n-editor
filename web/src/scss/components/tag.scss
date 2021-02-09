@@ -1,0 +1,16 @@
+@import "variables";
+
+.cm-tag {
+  display: inline-flex;
+  flex-direction: row;
+  align-content: center;
+
+  border-radius: 3px;
+  background-color: $secondaryDark;
+  padding: 8px;
+
+  .cm-tag-icon {
+    width: 16px;
+    margin-right: 4px;
+  }
+}

@@ -3,22 +3,17 @@
     <div class="cm-card-header px-12">Projects</div>
 
     <div class="cm-card-content">
-      <div class="project p-12" v-for="project in projects" v-bind:key="project.id">
+      <div class="project p-12" v-for="project in projects" v-bind:key="project.id" @click="onRowClick(project)">
         <div>{{ project.name }}</div>
-        <div class="cm-text small">Last updated at: {{ project.updateDate }}</div>
+        <div class="cm-text small">Last updated at: {{ formatDate(project.updateDate) }}</div>
       </div>
     </div>
 
     <div class="cm-card-footer px-12">
-      <button class="cm-button" @click="onNewProjectClick">
+      <button type="button" class="cm-button" @click="onNewProjectClick">
         New project
       </button>
     </div>
-  </div>
-
-  <div>
-    <h3>Project</h3>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -28,6 +23,7 @@ import { Options, Vue } from 'vue-class-component';
 import { Project } from '@/classes/project';
 import { ProjectApiService } from '@/api/project';
 import ProjectForm from '@/components/ProjectForm.vue';
+import moment from 'moment';
 
 @Options({
   name      : 'i18n-project-list',
@@ -52,6 +48,10 @@ export default class ProjectList extends Vue {
 
   onNewProjectClick() {
     this.$router.push('/projects/new');
+  }
+
+  formatDate(date: Date): string {
+    return moment(date).format('DD.MM.YYYY HH:mm');
   }
 
   private refresh() {

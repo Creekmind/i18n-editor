@@ -10,4 +10,40 @@
   .py-#{$i} {
     padding: #{$i}px 0px;
   }
+
+  .m-#{$i} {
+    margin: #{$i}px;
+  }
+
+  .mt-#{$i} {
+    margin-top: #{$i}px;
+  }
+
+  .mr-#{$i} {
+    margin-right: #{$i}px;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+
+  .ml-#{$i} {
+    margin-left: #{$i}px;
+  }
+
+  .mx-#{$i} {
+    margin: 0px #{$i}px;
+  }
+
+  .my-#{$i} {
+    margin: #{$i}px 0px;
+  }
+}
+
+.cm-flex {
+  display: flex;
+}
+
+.cm-flex-1 {
+  flex: 1;
 }

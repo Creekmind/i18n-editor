@@ -10,12 +10,11 @@ const routes: Array<RouteRecordRaw> = [{
   children : [{
     path     : 'projects',
     name     : 'Projects',
-    component: ProjectList,
-    children : [{
-      path     : ':id',
-      component: ProjectForm,
-      props    : true
-    }]
+    component: ProjectList
+  }, {
+    path     : 'projects/:id',
+    component: ProjectForm,
+    props    : true
   }]
 }, {
   path     : '/about',

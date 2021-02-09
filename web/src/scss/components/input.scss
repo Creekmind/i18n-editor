@@ -1,0 +1,12 @@
+@import "variables";
+
+.cm-input {
+  border-radius: 3px;
+  padding: 8px 8px;
+  border: 1px solid $secondaryDark;
+  outline: none;
+
+  &:focus {
+    border-color: $primaryDark;
+  }
+}
