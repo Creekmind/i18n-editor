@@ -42,6 +42,14 @@
 
 .cm-flex {
   display: flex;
+
+  &.cm-ai-center {
+    align-items: center;
+  }
+
+  &.cm-jc-space-between {
+    justify-content: space-between;
+  }
 }
 
 .cm-flex-1 {

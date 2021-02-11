@@ -3,9 +3,23 @@
     <div class="cm-card-header px-12">Projects</div>
 
     <div class="cm-card-content">
-      <div class="project p-12" v-for="project in projects" v-bind:key="project.id" @click="onRowClick(project)">
-        <div>{{ project.name }}</div>
-        <div class="cm-text small">Last updated at: {{ formatDate(project.updateDate) }}</div>
+      <div class="project p-12 cm-flex cm-ai-center" v-for="project in projects" v-bind:key="project.id" @click="onRowClick(project)">
+        <div class="cm-flex-1 project-name">
+          <div class="cm-text ellipsis">{{ project.name }}</div>
+          <div class="cm-text very small">Last updated at: {{ formatDate(project.updateDate) }}</div>
+        </div>
+
+        <div class="edit-project mr-8" title="Setup projects" @click.stop="onProjectEditClick(project)">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+          </svg>
+        </div>
+
+        <div class="delete-project" title="Delete project" @click.stop="onProjectDeleteClick(project)">
+          <svg  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -21,9 +35,9 @@
 
 import { Options, Vue } from 'vue-class-component';
 import { Project } from '@/classes/project';
-import { ProjectApiService } from '@/api/project';
-import ProjectForm from '@/components/ProjectForm.vue';
+import ProjectForm from '@/components/ProjectSetupForm.vue';
 import moment from 'moment';
+import { api } from '@/api/api';
 
 @Options({
   name      : 'i18n-project-list',
@@ -36,7 +50,6 @@ import moment from 'moment';
 })
 export default class ProjectList extends Vue {
   projects: Project[] = [];
-  api = ProjectApiService.new();
 
   mounted() {
     this.refresh();
@@ -44,6 +57,16 @@ export default class ProjectList extends Vue {
 
   onRowClick(project: Project) {
     this.$router.push({ path: `/projects/${project.id}` });
+  }
+
+  onProjectEditClick(project: Project) {
+    this.$router.push({ path: `/projects/${project.id}/setup` });
+  }
+
+  onProjectDeleteClick(project: Project) {
+    api.projects.delete(project).subscribe(() => {
+      this.refresh();
+    });
   }
 
   onNewProjectClick() {
@@ -55,7 +78,7 @@ export default class ProjectList extends Vue {
   }
 
   private refresh() {
-    this.api.find().subscribe((projects: Project[]) => {
+    api.projects.find().subscribe((projects: Project[]) => {
       this.projects = projects;
     });
   }
@@ -68,9 +91,14 @@ export default class ProjectList extends Vue {
 
   .project {
     cursor: pointer;
+    width: 270px;
 
     &:hover {
       background-color: #f4f4f4;
+
+      .delete-project, .edit-project {
+        display: inline-block;
+      }
     }
 
     &:active {
@@ -78,7 +106,22 @@ export default class ProjectList extends Vue {
     }
 
     .project-date {
+
     }
+
+    .project-name {
+      overflow: hidden;
+    }
+
+    .edit-project, .delete-project {
+      display: none;
+
+      & > svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
   }
 
 </style>

@@ -1,8 +1,19 @@
+@import "variables";
+
 .cm-text {
 
   &.small {
     font-size: 12px;
     line-height: 16px;
+
+    &.very {
+      font-size: 10px;
+    }
   }
 
+  &.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
