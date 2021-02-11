@@ -21,7 +21,6 @@ import { api } from '@/api/api';
 })
 export default class ProjectForm extends Vue {
   id!: string;
-  name!: string;
   project = new Project();
 
   mounted() {
