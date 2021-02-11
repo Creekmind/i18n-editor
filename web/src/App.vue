@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -23,5 +21,22 @@ export default class Application extends Vue {
 
 @import '~@cds/city/css/bundles/default.min.css'; // load base font
 @import 'scss/theme.scss';
+
+body, html, #app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+#app {
+  overflow: auto;
+}
 
 </style>

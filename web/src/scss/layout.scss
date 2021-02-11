@@ -40,8 +40,16 @@
   }
 }
 
+.cm-fluid {
+  width: 100%;
+}
+
 .cm-flex {
   display: flex;
+
+  &.cm-flex-column {
+    flex-direction: column;
+  }
 
   &.cm-ai-center {
     align-items: center;
@@ -54,4 +62,8 @@
 
 .cm-flex-1 {
   flex: 1;
+}
+
+.cm-flex-0 {
+  flex: 0;
 }

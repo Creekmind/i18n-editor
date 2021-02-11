@@ -63,7 +63,7 @@ import { Language } from '@/classes/language';
 import { api } from '@/api/api';
 
 @Options({
-  name : 'i18n-project-form',
+  name : 'i18n-project-setup-form',
   props: {
     id: String
   },
