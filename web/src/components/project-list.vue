@@ -3,7 +3,7 @@
     <div class="cm-card-header px-12">Projects</div>
 
     <div class="cm-card-content">
-      <div class="project p-12 cm-flex cm-ai-center" v-for="project in projects" v-bind:key="project.id" @click="onRowClick(project)">
+      <div class="project p-12 cm-flex cm-ai-center" v-for="project in projects" :key="project.id" @click="onRowClick(project)">
         <div class="cm-flex-1 project-name">
           <div class="cm-text ellipsis">{{ project.name }}</div>
           <div class="cm-text very small">Last updated at: {{ formatDate(project.updateDate) }}</div>
@@ -35,7 +35,7 @@
 
 import { Options, Vue } from 'vue-class-component';
 import { Project } from '@/classes/project';
-import ProjectForm from '@/components/ProjectSetupForm.vue';
+import ProjectForm from '@/components/project-setup-form.vue';
 import moment from 'moment';
 import { api } from '@/api/api';
 

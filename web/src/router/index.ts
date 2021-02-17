@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
-import ProjectList from '@/components/ProjectList.vue';
-import ProjectForm from '@/components/ProjectForm.vue';
-import ProjectSetupForm from '@/components/ProjectSetupForm.vue';
+import ProjectList from '@/components/project-list.vue';
+import ProjectForm from '@/components/project-form.vue';
+import ProjectSetupForm from '@/components/project-setup-form.vue';
 
 const routes: Array<RouteRecordRaw> = [{
   path     : '/',

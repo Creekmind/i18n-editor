@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import ProjectList from '@/components/ProjectList.vue';
+import ProjectList from '@/components/project-list.vue';
 
 @Options({
   components: {

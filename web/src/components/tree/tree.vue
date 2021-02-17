@@ -1,18 +1,12 @@
 <template>
   <div>
-    <div v-for="node in children" v-bind:key="node.name">
-      {{ node.name }}
-
-      <tree-node :node="node">
-
-      </tree-node>
-    </div>
+    <tree-node :node="tree" @nodeClick="onNodeClick"></tree-node>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import TreeNode from '@/components/tree/TreeNode.vue';
+import TreeNode from '@/components/tree/tree-node.vue';
 import { Node } from '@/components/tree/classes/node';
 
 @Options({
@@ -22,17 +16,19 @@ import { Node } from '@/components/tree/classes/node';
   },
   components: {
     'tree-node': TreeNode
-  }
+  },
+  emits: [
+    'nodeClick'
+  ]
 })
 export default class Tree extends Vue {
-  children = [
+  tree = new Node('', [
     new Node('1', [
       new Node('1.1', [
         new Node('1.1.1'),
         new Node('1.1.2'),
         new Node('1.1.3'),
         new Node('1.1.4')
-
       ]),
       new Node('1.2', [
         new Node('1.2.1'),
@@ -43,7 +39,11 @@ export default class Tree extends Vue {
     ]),
     new Node('2'),
     new Node('3')
-  ];
+  ]);
+
+  onNodeClick(node: Node) {
+    this.$emit('nodeClick', node);
+  }
 }
 </script>
 

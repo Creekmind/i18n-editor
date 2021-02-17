@@ -2,7 +2,7 @@ export class Node {
   name!: string;
   children: Node[] = [];
 
-  constructor(name: string, children = []) {
+  constructor(name: string, children: Node[] = []) {
     this.name = name;
     this.children = children;
   }
