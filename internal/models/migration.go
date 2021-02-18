@@ -10,6 +10,25 @@ func Migrate() error {
 }
 
 func createCollections() error {
+    if err := createProjects(); err != nil {
+        return err
+    }
+
+    if err := createTranslations(); err != nil {
+        return err
+    }
+
+    return nil
+}
+
+func createProjects() error {
+    return storage.Connection.Update(func(tx *bolt.Tx) error {
+        _, err := tx.CreateBucketIfNotExists([]byte(collectionProjects))
+        return err
+    })
+}
+
+func createTranslations() error {
     return storage.Connection.Update(func(tx *bolt.Tx) error {
         _, err := tx.CreateBucketIfNotExists([]byte(collectionProjects))
         return err
