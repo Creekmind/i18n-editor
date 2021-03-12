@@ -2,12 +2,12 @@
   <div class="project cm-flex cm-flex-column">
     <h3 class="ml-12 mt-12">Project "{{ project.toString() }}"</h3>
     <div class="cm-flex cm-flex-1">
-      <div class="keys cm-flex-0 px-12">
+      <div class="keys cm-flex-0 px-12 cm-flex cm-flex-column">
         <input class="cm-input cm-fluid" placeholder="Search...">
 
-        <i18n-tree :root="root" class="mt-12" @nodeClick="onNodeClick"/>
+        <i18n-tree :root="root" class="my-12 cm-flex-1" @nodeClick="onNodeClick"/>
 
-        <div class="cm-flex cm-fluid">
+        <div class="cm-flex cm-fluid mb-12">
           <input ref="newKeyInput" class="cm-input cm-flex-1 mr-4" placeholder="Type new key">
           <button class="cm-button" @click="onNewKeyAdd()">Add key</button>
         </div>
@@ -16,6 +16,9 @@
       <div class="divider"></div>
 
       <div class="translations cm-flex-1 mx-24">
+        <div class="my-10">
+          {{ $route.query.key }}
+        </div>
         <div class="translation mb-8" v-for="translation in activeTranslations" :key="translation.language">
           <div>{{ translation.language }}</div>
           <textarea rows="5" class="cm-input" ></textarea>

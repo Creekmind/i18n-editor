@@ -1,9 +1,9 @@
 <template>
-  <div class="i18n-tree-node" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
+  <div class="i18n-tree-node" :class="{ 'has-children': !!node.children.length }" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
     <div class="hover" v-if="hover"></div>
     <span class="title">{{ node.name }}</span>
 
-    <div :class="{ 'has-children': !!child.children.length }" v-for="child in node.children" :key="child.name">
+    <div class="i18n-tree-node-child" v-for="child in node.children" :key="child.name">
       <tree-node :node="child" @nodeClick="onClick($event)"></tree-node>
     </div>
   </div>
@@ -23,7 +23,7 @@ import { Node } from '@/components/tree/classes/node';
     'nodeClick'
   ]
 })
-export default class ProjectForm extends Vue {
+export default class TreeNode extends Vue {
   node!: Node;
   hover = false;
 
@@ -45,13 +45,22 @@ export default class ProjectForm extends Vue {
   @import "src/scss/components/variables";
 
 .i18n-tree-node {
-  margin-left: 16px;
   cursor: pointer;
   position: relative;
+  padding-left: 16px;
 
-  &.has-children {
+  &.tree-root {
+    padding-left: 0px;
+
     & > .title {
-      color: red;
+      display: none;
+    }
+
+    & > .i18n-tree-node-child > .i18n-tree-node {
+      padding-left: 0px;
+      .title {
+
+      }
     }
   }
 

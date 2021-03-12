@@ -24,7 +24,7 @@ const createBranch = (path: string[], directParent: Node, cache: Map<string, Nod
 };
 
 export const keyTranslationsToTree = (keys: Translations[]): Node => {
-  const root = new Node('', '');
+  const root = new Node('', 'root');
   const cache = new Map<string, Node>();
 
   keys.forEach((translations: Translations) => {

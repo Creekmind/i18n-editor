@@ -7,7 +7,8 @@ import { DataObject } from '@/classes/base/data-object';
 
 export class BaseApiService<T extends DataObject> {
   protected baseURL = '';
-  protected cls!: new(..._: any) => T
+  // eslint-disable-next-line
+  protected cls!: new(..._: any[]) => T
 
   find(params?: Params, url = this.baseURL): Observable<T[]> {
     return Axios.get<unknown[]>(url, { params }).pipe(

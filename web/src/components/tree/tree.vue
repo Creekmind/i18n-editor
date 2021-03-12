@@ -1,13 +1,13 @@
 <template>
   <div>
-    <tree-node :node="root" @nodeClick="onNodeClick"></tree-node>
+    <tree-node :node="root" @nodeClick="onNodeClick" class="tree-root"></tree-node>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import TreeNode from '@/components/tree/tree-node.vue';
 import { Node } from '@/components/tree/classes/node';
+import TreeNode from '@/components/tree/tree-node.vue';
 
 @Options({
   name      : 'i18n-project-form',
