@@ -30,7 +30,7 @@ func createProjects() error {
 
 func createTranslations() error {
     return storage.Connection.Update(func(tx *bolt.Tx) error {
-        _, err := tx.CreateBucketIfNotExists([]byte(collectionProjects))
+        _, err := tx.CreateBucketIfNotExists([]byte(collectionTranslations))
         return err
     })
 }

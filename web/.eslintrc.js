@@ -20,6 +20,6 @@ module.exports = {
     'no-undef-init'               : 'off',
     'no-trailing-spaces'          : 'off',
     'space-before-function-paren' : 'off',
-    'no-multi-spaces'             : 'off'
+    'no-multi-spaces'             : 'off',
   }
 };

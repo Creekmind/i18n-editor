@@ -15,6 +15,7 @@ func StartRouter() {
     web.Router("/api/projects/:id", controllers.NewProjectController(), "put:UpdateProject")
     web.Router("/api/projects/:id", controllers.NewProjectController(), "delete:DeleteProject")
 
-    web.Router("/api/projects/:id/keys/:key", controllers.NewTranslationController(), "post:UpsertTranslations")
-    web.Router("/api/projects/:id/keys/:key", controllers.NewTranslationController(), "get:GetTranslations")
+    web.Router("/api/projects/:id/keys/", controllers.NewTranslationsController(), "get:GetKeys")
+    web.Router("/api/projects/:id/keys/:key", controllers.NewTranslationsController(), "post:UpsertTranslations")
+    web.Router("/api/projects/:id/keys/:key", controllers.NewTranslationsController(), "get:GetTranslations")
 }

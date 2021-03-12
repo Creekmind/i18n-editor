@@ -1,8 +1,12 @@
 export class Node {
-  name!: string;
+  id: string;
+  name: string;
   children: Node[] = [];
+  data: unknown;
+  parent?: Node;
 
-  constructor(name: string, children: Node[] = []) {
+  constructor(id: string, name: string, children: Node[] = []) {
+    this.id = id;
     this.name = name;
     this.children = children;
   }

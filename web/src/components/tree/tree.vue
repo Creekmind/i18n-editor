@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tree-node :node="tree" @nodeClick="onNodeClick"></tree-node>
+    <tree-node :node="root" @nodeClick="onNodeClick"></tree-node>
   </div>
 </template>
 
@@ -12,7 +12,8 @@ import { Node } from '@/components/tree/classes/node';
 @Options({
   name      : 'i18n-project-form',
   props     : {
-    id: String
+    id: String,
+    root: Node
   },
   components: {
     'tree-node': TreeNode
@@ -22,24 +23,7 @@ import { Node } from '@/components/tree/classes/node';
   ]
 })
 export default class Tree extends Vue {
-  tree = new Node('', [
-    new Node('1', [
-      new Node('1.1', [
-        new Node('1.1.1'),
-        new Node('1.1.2'),
-        new Node('1.1.3'),
-        new Node('1.1.4')
-      ]),
-      new Node('1.2', [
-        new Node('1.2.1'),
-        new Node('1.2.2'),
-        new Node('1.2.3')
-      ]),
-      new Node('1.3')
-    ]),
-    new Node('2'),
-    new Node('3')
-  ]);
+  root = null;
 
   onNodeClick(node: Node) {
     this.$emit('nodeClick', node);

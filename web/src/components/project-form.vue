@@ -5,7 +5,12 @@
       <div class="keys cm-flex-0 px-12">
         <input class="cm-input cm-fluid" placeholder="Search...">
 
-        <i18n-tree class="mt-12" @nodeClick="onNodeClick"/>
+        <i18n-tree :root="root" class="mt-12" @nodeClick="onNodeClick"/>
+
+        <div class="cm-flex cm-fluid">
+          <input ref="newKeyInput" class="cm-input cm-flex-1 mr-4" placeholder="Type new key">
+          <button class="cm-button" @click="onNewKeyAdd()">Add key</button>
+        </div>
       </div>
 
       <div class="divider"></div>
@@ -28,6 +33,8 @@ import { api } from '@/api/api';
 import Tree from '@/components/tree/tree.vue';
 import { Node } from '@/components/tree/classes/node';
 import { Translation } from '@/classes/translation';
+import { Translations } from '@/classes/translations';
+import { keyTranslationsToTree } from '@/components/helpers/tree';
 
 @Options({
   name      : 'i18n-project-form',
@@ -48,6 +55,7 @@ import { Translation } from '@/classes/translation';
 export default class ProjectForm extends Vue {
   id!: string;
   project = new Project();
+  root: Node | null = null;
   activeTranslations: Translation[] = [];
 
   mounted() {
@@ -55,6 +63,10 @@ export default class ProjectForm extends Vue {
   }
 
   fetchProject(id: string) {
+    api.translations.findKeys(id).subscribe((translations: Translations[]) => {
+      this.root = keyTranslationsToTree(translations)
+    });
+
     api.projects.findOne(id).subscribe((project: Project) => {
       this.project = project;
     });
@@ -65,6 +77,13 @@ export default class ProjectForm extends Vue {
       query: {
         key: node.name
       }
+    });
+  }
+
+  onNewKeyAdd() {
+    const inputEl = this.$refs.newKeyInput as HTMLInputElement;
+    api.translations.create(new Translations(inputEl.value, this.project.id)).subscribe((translations: Translations) => {
+      console.log(translations);
     });
   }
 

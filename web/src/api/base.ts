@@ -7,10 +7,10 @@ import { DataObject } from '@/classes/base/data-object';
 
 export class BaseApiService<T extends DataObject> {
   protected baseURL = '';
-  protected cls!: new() => T
+  protected cls!: new(..._: any) => T
 
-  find(params?: Params): Observable<T[]> {
-    return Axios.get<unknown[]>(this.baseURL, { params }).pipe(
+  find(params?: Params, url = this.baseURL): Observable<T[]> {
+    return Axios.get<unknown[]>(url, { params }).pipe(
       map((response) => {
         return response.data.map((item: unknown) => unbox<T>(item, this.cls));
       })
@@ -33,8 +33,8 @@ export class BaseApiService<T extends DataObject> {
     }
   }
 
-  create(data: T, params?: Params): Observable<T> {
-    return Axios.post(this.baseURL, box<T>(data), { params }).pipe(
+  create(data: T, params?: Params, url = this.baseURL): Observable<T> {
+    return Axios.post(url, box<T>(data), { params }).pipe(
       map((response) => {
         return unbox<T>(response.data, this.cls);
       })

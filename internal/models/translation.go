@@ -5,17 +5,41 @@ import (
     "fmt"
     "github.com/boltdb/bolt"
     "io"
+    "strings"
 )
 
 type Translations struct {
-    Key string `json:"key"`
-    ProjectID string `json:"projectID"`
+    ID           string        `json:"id"`
+    ProjectID    string        `json:"projectID"`
     Translations []translation `json:"translations"`
+    CreateDate   int64         `json:"createDate"`
+    UpdateDate   int64         `json:"updateDate"`
 }
 
 type translation struct {
     Language string `json:"language"`
     Value    string `json:"value"`
+}
+
+func GetKeys(tx *bolt.Tx, project string) ([]Translations, error) {
+    keys := make([]Translations, 0)
+    err := getTranslationBucket(tx).ForEach(func(key, value []byte) error {
+        k := string(key)
+
+        translations := newTranslations(project, k)
+
+        if err := json.Unmarshal(value, &translations); err != nil {
+            return err
+        }
+
+        if strings.Contains(k, project) {
+            keys = append(keys, *translations)
+        }
+
+        return nil
+    })
+
+    return keys, err
 }
 
 func GetTranslations(tx *bolt.Tx, project, key string) (*Translations, error) {
@@ -48,7 +72,6 @@ func (r *Translations) Upsert(tx *bolt.Tx, project, key string) error {
         return err
     }
 
-
     return r.put(tx)
 }
 
@@ -67,13 +90,13 @@ func (r *Translations) put(tx *bolt.Tx) error {
 }
 
 func (r Translations) Hash() []byte {
-    return []byte(fmt.Sprintf("%s-%s", r.ProjectID, r.Key))
+    return []byte(fmt.Sprintf("%s-%s", r.ProjectID, r.ID))
 }
 
 func newTranslations(project, key string) *Translations {
     return &Translations{
-        ProjectID: project,
-        Key: key,
+        ProjectID:    project,
+        ID:           key,
         Translations: make([]translation, 0),
     }
 }

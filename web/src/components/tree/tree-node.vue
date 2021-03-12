@@ -1,5 +1,5 @@
 <template>
-  <div class="i18n-tree-node" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()">
+  <div class="i18n-tree-node" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
     <div class="hover" v-if="hover"></div>
     <span class="title">{{ node.name }}</span>
 

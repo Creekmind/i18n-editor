@@ -9,11 +9,34 @@ import (
     "i18n-editor/internal/storage"
 )
 
-type translationController struct {
+type translationsController struct {
     web.Controller
 }
 
-func (r *translationController) UpsertTranslation() {
+func (r *translationsController) GetKeys() {
+    projectID := r.Ctx.Input.Param(":id")
+
+    var keys []models.Translations
+    err := storage.Connection.View(func(tx *bolt.Tx) (err error) {
+        keys, err = models.GetKeys(tx, projectID)
+        return
+    })
+
+    if err != nil {
+        r.CustomAbort(500, err.Error())
+        return
+    }
+
+    r.Data["json"] = keys
+
+    if err := r.ServeJSON(); err != nil {
+        fmt.Println(err)
+        r.CustomAbort(500, err.Error())
+        return
+    }
+}
+
+func (r *translationsController) UpsertTranslations() {
     projectID := r.Ctx.Input.Param(":id")
     key := r.Ctx.Input.Param(":key")
 
@@ -42,7 +65,7 @@ func (r *translationController) UpsertTranslation() {
     }
 }
 
-func (r *translationController) GetTranslations() {
+func (r *translationsController) GetTranslations() {
     projectID := r.Ctx.Input.Param(":id")
     key := r.Ctx.Input.Param(":key")
 
@@ -67,6 +90,6 @@ func (r *translationController) GetTranslations() {
     }
 }
 
-func NewTranslationController() *translationController {
-    return &translationController{}
+func NewTranslationsController() *translationsController {
+    return &translationsController{}
 }
