@@ -11,15 +11,17 @@ module.exports = {
   parserOptions : {
     ecmaVersion : 2020
   },
-  rules         : {
-    'no-console'                  : process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger'                 : process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'key-spacing'                 : 'off',
-    'no-extra-semi'               : 'off',
-    'semi'                        : 'off',
-    'no-undef-init'               : 'off',
-    'no-trailing-spaces'          : 'off',
-    'space-before-function-paren' : 'off',
-    'no-multi-spaces'             : 'off',
+  rules : {
+    'no-console'                               : process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger'                              : process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'key-spacing'                              : 'off',
+    'no-extra-semi'                            : 'off',
+    'semi'                                     : 'off',
+    'no-undef-init'                            : 'off',
+    'no-trailing-spaces'                       : 'off',
+    'space-before-function-paren'              : 'off',
+    'no-multi-spaces'                          : 'off',
+    'no-unused-expressions'                    : 'off',
+    '@typescript-eslint/no-unused-expressions' : 'error'
   }
 };

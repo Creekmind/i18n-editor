@@ -124,6 +124,8 @@ export default class ProjectForm extends Vue {
         this.activeKeyTranslations.translations.push(new Translation(language.iso));
       }
     });
+
+    this.root?.activate(key);
   }
 
   private refreshTree(id: string) {

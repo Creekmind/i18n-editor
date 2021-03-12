@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tree-node :node="root" @nodeClick="onNodeClick" class="tree-root"></tree-node>
+    <tree-node class="tree-root" :node="root" @nodeClick="onNodeClick"></tree-node>
   </div>
 </template>
 

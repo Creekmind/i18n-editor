@@ -1,5 +1,5 @@
 <template>
-  <div class="i18n-tree-node" :class="{ 'has-children': !!node.children.length }" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
+  <div class="i18n-tree-node" :class="{ 'has-children': hasChildren(), 'active': node.active }" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
     <div class="hover" v-if="hover"></div>
     <span class="title">{{ node.name }}</span>
 
@@ -28,6 +28,9 @@ export default class TreeNode extends Vue {
   hover = false;
 
   onMouseOver() {
+    if (this.hasChildren()) {
+      return;
+    }
     this.hover = true;
   }
 
@@ -36,7 +39,14 @@ export default class TreeNode extends Vue {
   }
 
   onClick(node = this.node) {
+    if (this.hasChildren(node)) {
+      return;
+    }
     this.$emit('nodeClick', node)
+  }
+
+  private hasChildren(node = this.node): boolean {
+    return !!node.children.length;
   }
 }
 </script>
@@ -48,6 +58,10 @@ export default class TreeNode extends Vue {
   cursor: pointer;
   position: relative;
   padding-left: 16px;
+
+  &.has-children {
+    cursor: default;
+  }
 
   &.tree-root {
     padding-left: 0px;
@@ -61,6 +75,12 @@ export default class TreeNode extends Vue {
       .title {
 
       }
+    }
+  }
+
+  &.active {
+    & > .title {
+      font-weight: bold;
     }
   }
 
