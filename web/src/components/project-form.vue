@@ -53,7 +53,7 @@ import { keyTranslationsToTree } from '@/components/helpers/tree';
   }
 })
 export default class ProjectForm extends Vue {
-  id!: string;
+  id = '';
   project = new Project();
   root: Node | null = null;
   activeTranslations: Translation[] = [];
@@ -63,9 +63,7 @@ export default class ProjectForm extends Vue {
   }
 
   fetchProject(id: string) {
-    api.translations.findKeys(id).subscribe((translations: Translations[]) => {
-      this.root = keyTranslationsToTree(translations)
-    });
+    this.refreshTree(id);
 
     api.projects.findOne(id).subscribe((project: Project) => {
       this.project = project;
@@ -75,15 +73,17 @@ export default class ProjectForm extends Vue {
   onNodeClick(node: Node) {
     this.$router.push({
       query: {
-        key: node.name
+        key: node.id
       }
     });
   }
 
   onNewKeyAdd() {
     const inputEl = this.$refs.newKeyInput as HTMLInputElement;
-    api.translations.create(new Translations(inputEl.value, this.project.id)).subscribe((translations: Translations) => {
-      console.log(translations);
+    const key = inputEl.value;
+    api.translations.create(new Translations(key, this.project.id)).subscribe(() => {
+      this.refreshTree(this.id);
+      this.activateTranslations(key)
     });
   }
 
@@ -95,6 +95,12 @@ export default class ProjectForm extends Vue {
       activeTranslations.push(translation);
     });
     this.activeTranslations = activeTranslations;
+  }
+
+  private refreshTree(id: string) {
+    api.translations.findKeys(id).subscribe((translations: Translations[]) => {
+      this.root = keyTranslationsToTree(translations)
+    });
   }
 }
 </script>
