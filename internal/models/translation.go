@@ -76,7 +76,7 @@ func (r *Translations) Upsert(tx *bolt.Tx, project, key string) error {
 }
 
 func (r *Translations) Merge(source *Translations) error {
-    r.Translations = source.Translations
+    //r.Translations = source.Translations
     return nil
 }
 

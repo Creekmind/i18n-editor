@@ -11,8 +11,9 @@ export class Translations extends DataObject {
 
   path = '';
 
-  constructor(id = '', projectID: string) {
+  constructor(id = '', projectID: string, translations: Translation[] = []) {
     super(id);
     this.projectID = projectID;
+    this.translations = translations;
   }
 }

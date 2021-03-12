@@ -26,11 +26,11 @@ export class BaseApiService<T extends DataObject> {
     );
   }
 
-  save(data: T, params?: Params): Observable<T> {
+  save(data: T, params?: Params, url?: string): Observable<T> {
     if (data.id) {
-      return this.update(data, params);
+      return this.update(data, params, url);
     } else {
-      return this.create(data, params);
+      return this.create(data, params, url);
     }
   }
 
@@ -42,8 +42,8 @@ export class BaseApiService<T extends DataObject> {
     );
   }
 
-  update(data: T, params?: Params): Observable<T> {
-    return Axios.put(`${this.baseURL}/${data.id}`, box<T>(data), { params }).pipe(
+  update(data: T, params?: Params, url = `${this.baseURL}/${data.id}`): Observable<T> {
+    return Axios.put(url, box<T>(data), { params }).pipe(
       map(response => {
         return unbox<T>(response.data, this.cls);
       })

@@ -13,6 +13,10 @@ class TranslationsApiService extends BaseApiService<Translations> {
   findKeys(projectID: string, params?: Params): Observable<Translations[]> {
     return super.find(params, `/api/projects/${projectID}/keys/`);
   }
+
+  save(data: Translations, params?: Params): Observable<Translations> {
+    return this.create(data, params);
+  }
 }
 
 export const translationsAPI = new TranslationsApiService();
