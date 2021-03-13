@@ -26,6 +26,7 @@
         </div>
       </div>
     </div>
+    <i18n-project-status-bar></i18n-project-status-bar>
   </div>
 </template>
 
@@ -42,6 +43,7 @@ import { keyTranslationsToTree } from '@/components/helpers/tree';
 import { Subject } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { AxiosResponse } from 'axios';
+import ProjectStatusBar from '@/components/project-status-bar.vue';
 
 @Options({
   name      : 'i18n-project-form',
@@ -57,7 +59,8 @@ import { AxiosResponse } from 'axios';
     searchQuery       : 'search'
   },
   components: {
-    'i18n-tree': Tree
+    'i18n-tree': Tree,
+    'i18n-project-status-bar': ProjectStatusBar
   }
 })
 export default class ProjectForm extends Vue {
@@ -117,6 +120,7 @@ export default class ProjectForm extends Vue {
   }
 
   onTranslationChange(key: string, translations: Translation[]) {
+    this.$store.dispatch('startTranslationsSaving');
     this.translationsChange$.next({
       key         : key,
       translations: translations,
@@ -150,9 +154,11 @@ export default class ProjectForm extends Vue {
     api.translations.save(new Translations(key, this.project.id, translations)).subscribe({
       next: () => {
         activeTranslations.translations = translations;
+        this.$store.dispatch('stopTranslationsSaving');
       },
       error: (response: AxiosResponse) => {
         console.error(response.data);
+        this.$store.dispatch('stopTranslationsSaving');
       }
     });
   }
