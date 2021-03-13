@@ -3,7 +3,7 @@
     <h3 class="ml-12 mt-12">Project "{{ project.toString() }}"</h3>
     <div class="cm-flex cm-flex-1">
       <div class="keys cm-flex-0 px-12 cm-flex cm-flex-column">
-        <input class="cm-input cm-fluid" placeholder="Search...">
+        <input class="cm-input cm-fluid" placeholder="Search..." v-model="searchQuery">
 
         <i18n-tree :root="root" class="my-12 cm-flex-1" @nodeClick="onNodeClick" />
 
@@ -51,9 +51,10 @@ import { AxiosResponse } from 'axios';
       required: true
     }
   },
-  watch     : {
+  watch: {
     id                : 'fetchProject',
-    '$route.query.key': 'activateTranslations'
+    '$route.query.key': 'activateTranslations',
+    searchQuery       : 'search'
   },
   components: {
     'i18n-tree': Tree
@@ -61,6 +62,7 @@ import { AxiosResponse } from 'axios';
 })
 export default class ProjectForm extends Vue {
   id = '';
+  searchQuery = '';
   project = new Project();
   root: Node | null = null;
   keys: Translations[] = [];
@@ -86,6 +88,15 @@ export default class ProjectForm extends Vue {
     return api.projects.findOne(id).pipe(tap((project: Project) => {
       this.project = project;
     }));
+  }
+
+  search(query: string) {
+    let translations = this.keys;
+    if (query !== '') {
+      translations = translations.filter(t => t.id.toLowerCase().indexOf(query.toLocaleLowerCase()) >= 0)
+    }
+    this.root = keyTranslationsToTree(translations);
+    this.root?.activate(this.$route.query.key as string);
   }
 
   onNodeClick(node: Node) {
@@ -131,7 +142,7 @@ export default class ProjectForm extends Vue {
   private refreshTree(id: string) {
     api.translations.findKeys(id).subscribe((translations: Translations[]) => {
       this.keys = translations;
-      this.root = keyTranslationsToTree(translations);
+      this.search(this.searchQuery);
     });
   }
 

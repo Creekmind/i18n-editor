@@ -9,8 +9,6 @@ export class Translations extends DataObject {
   @array(Translation)
   translations: Translation[] = [];
 
-  path = '';
-
   constructor(id = '', projectID: string, translations: Translation[] = []) {
     super(id);
     this.projectID = projectID;
