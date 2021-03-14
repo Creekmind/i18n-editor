@@ -29,7 +29,7 @@ export const keyTranslationsToTree = (keys: Translations[]): Node => {
 
   keys.forEach((translations: Translations) => {
     const key = translations.id; // 'common.form.ok'
-    const path = key.split('.'); // ['common', 'form', 'ok']
+    const path = key.split(keyDelimiter); // ['common', 'form', 'ok']
     createBranch(path, root, cache);
   });
 

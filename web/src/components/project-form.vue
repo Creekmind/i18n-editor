@@ -1,8 +1,23 @@
 <template>
   <div class="project cm-flex cm-flex-column">
-    <h3 class="ml-12 mt-12">Project "{{ project.toString() }}"</h3>
-    <div class="cm-flex cm-flex-1">
-      <div class="keys cm-flex-0 px-12 cm-flex cm-flex-column">
+    <h3 class="px-12 my-12">
+      Project "{{ project.toString() }}"
+    </h3>
+    <div class="cm-flex cm-flex-1 project-workspace">
+      <div class="keys cm-flex-0 px-12 mt-12 cm-flex cm-flex-column">
+        <div class="action-bar cm-flex cm-ai-center mb-4">
+          <div title="Export JSON" class="export-json" @click="exportJSON">
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div title="Import JSON" class="import-json">
+            <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+        </div>
+
         <input class="cm-input cm-fluid" placeholder="Search..." v-model="searchQuery">
 
         <i18n-tree :root="root" class="my-12 cm-flex-1" @nodeClick="onNodeClick" />
@@ -44,6 +59,8 @@ import { Subject } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { AxiosResponse } from 'axios';
 import ProjectStatusBar from '@/components/project-status-bar.vue';
+import { keyTranslationsToJSON } from '@/components/helpers/keys';
+import JSZip from 'jszip';
 
 @Options({
   name      : 'i18n-project-form',
@@ -143,6 +160,29 @@ export default class ProjectForm extends Vue {
     this.root?.activate(key);
   }
 
+  exportJSON() {
+    const zip = new JSZip();
+
+    this.project.languages.forEach((language) => {
+      const json = keyTranslationsToJSON(this.keys, language.iso);
+      const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+      zip.file(`${language.iso}.json`, blob);
+    });
+
+    zip.generateAsync({ type: 'blob' }).then((blob) => {
+      const uri = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.download = `${this.project.name}.zip`;
+      link.href = uri;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, function(err) {
+      console.error(err);
+    });
+  }
+
   private refreshTree(id: string) {
     api.translations.findKeys(id).subscribe((translations: Translations[]) => {
       this.keys = translations;
@@ -172,6 +212,19 @@ export default class ProjectForm extends Vue {
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
+
+  .project-workspace {
+    border-top: 1px solid $secondaryDark;
+
+    .action-bar {
+      .export-json, .import-json {
+        width: 24px;
+        height: 24px;
+        color: $primaryDark;
+        cursor: pointer;
+      }
+    }
+  }
 
   .keys {
     flex-basis: 400px;

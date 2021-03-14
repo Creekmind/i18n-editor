@@ -12,6 +12,10 @@
     padding: #{$i}px 0px;
   }
 
+  .pt-#{$i} {
+    padding-top: #{$i}px;
+  }
+
   .m-#{$i} {
     margin: #{$i}px;
   }
@@ -38,7 +42,8 @@
   }
 
   .my-#{$i} {
-    margin: #{$i}px 0px;
+    margin-top: #{$i}px;
+    margin-bottom: #{$i}px;
   }
 }
 

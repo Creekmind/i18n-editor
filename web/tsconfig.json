@@ -15,9 +15,11 @@
     "types": [
       "webpack-env",
       "jest",
-      "vuex"
+      "vuex",
+      "lodash"
     ],
     "typeRoots": [
+      "node_modules/@types",
       "src/types"
     ],
     "paths": {
@@ -37,7 +39,6 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
