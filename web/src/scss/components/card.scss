@@ -8,13 +8,14 @@
   .cm-card-header {
     font-weight: 500;
     background-color: $primaryText;
+    padding-bottom: 8px;
   }
 
   .cm-card-content {
-    padding: 8px 0px;
   }
 
   .cm-card-footer {
+    padding-top: 8px;
   }
 }
 

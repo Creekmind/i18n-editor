@@ -1,32 +1,37 @@
 <template>
-  <div class="cm-card">
-    <div class="cm-card-header px-12">Projects</div>
+  <div class="project-list">
+    <div class="cm-card">
+      <div class="cm-card-header px-12">Projects</div>
 
-    <div class="cm-card-content">
-      <div class="project p-12 cm-flex cm-ai-center" v-for="project in projects" :key="project.id" @click="onRowClick(project)">
-        <div class="cm-flex-1 project-name">
-          <div class="cm-text ellipsis">{{ project.name }}</div>
-          <div class="cm-text very small">Last updated at: {{ formatDate(project.updateDate) }}</div>
-        </div>
+      <div class="cm-card-content">
+        <div class="project p-12 cm-flex cm-ai-center" v-for="project in projects" :key="project.id"
+             @click="onRowClick(project)">
+          <div class="cm-flex-1 project-name">
+            <div class="cm-text ellipsis">{{ project.name }}</div>
+            <div class="cm-text very small">Last updated at: {{ formatDate(project.updateDate) }}</div>
+          </div>
 
-        <div class="edit-project mr-8" title="Setup projects" @click.stop="onProjectEditClick(project)">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-          </svg>
-        </div>
+          <div class="edit-project mr-8" title="Setup projects" @click.stop="onProjectEditClick(project)">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+          </div>
 
-        <div class="delete-project" title="Delete project" @click.stop="onProjectDeleteClick(project)">
-          <svg  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
+          <div class="delete-project" title="Delete project" @click.stop="onProjectDeleteClick(project)">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="cm-card-footer px-12">
-      <button type="button" class="cm-button" @click="onNewProjectClick">
-        New project
-      </button>
+      <div class="cm-card-footer px-12">
+        <button type="button" class="cm-button" @click="onNewProjectClick">
+          New project
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +75,7 @@ export default class ProjectList extends Vue {
   }
 
   onNewProjectClick() {
-    this.$router.push('/projects/new');
+    this.$router.push('/projects/new/setup');
   }
 
   formatDate(date: Date): string {
@@ -87,7 +92,25 @@ export default class ProjectList extends Vue {
 
 <style scoped lang="scss">
 
-  @import "src/scss/components/variables";
+@import "src/scss/components/variables";
+
+.project-list {
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .cm-card-content {
+    min-width: 300px;
+    max-height: 400px;
+    min-height: 200px;
+    border-top: 1px solid $secondaryDark;
+    border-bottom: 1px solid $secondaryDark;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
   .project {
     cursor: pointer;
@@ -123,5 +146,6 @@ export default class ProjectList extends Vue {
     }
 
   }
+}
 
 </style>

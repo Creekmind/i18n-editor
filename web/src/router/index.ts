@@ -6,11 +6,11 @@ import ProjectSetupForm from '@/components/project-setup-form.vue';
 
 const routes: Array<RouteRecordRaw> = [{
   path     : '/',
-  name     : 'Home',
   component: Home,
+  redirect : 'projects',
   children : [{
     path     : 'projects',
-    name     : 'Projects',
+    name     : 'projects',
     component: ProjectList
   }, {
     path     : 'projects/:id',
@@ -20,6 +20,9 @@ const routes: Array<RouteRecordRaw> = [{
     path     : 'projects/:id/setup',
     component: ProjectSetupForm,
     props    : true
+  }, {
+    path     : 'projects/new/setup',
+    component: ProjectSetupForm
   }]
 }];
 
