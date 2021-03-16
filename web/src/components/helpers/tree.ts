@@ -3,7 +3,7 @@ import { Translations } from '@/classes/translations';
 
 export const keyDelimiter = '.';
 
-const createBranch = (path: string[], directParent: Node, cache: Map<string, Node>) => {
+const createBranch = (path: string[], directParent: Node, data: unknown, cache: Map<string, Node>) => {
   path.forEach((name, index) => {
     const nodePath = path.slice(0, index + 1);
     const id = nodePath.join(keyDelimiter);
@@ -13,6 +13,7 @@ const createBranch = (path: string[], directParent: Node, cache: Map<string, Nod
       node = cache.get(id) as Node;
     } else {
       node = new Node(id, nodePath[nodePath.length - 1]);
+      node.data = data;
       cache.set(node.id, node);
     }
 
@@ -30,7 +31,7 @@ export const keyTranslationsToTree = (keys: Translations[]): Node => {
   keys.forEach((translations: Translations) => {
     const key = translations.id; // 'common.form.ok'
     const path = key.split(keyDelimiter); // ['common', 'form', 'ok']
-    createBranch(path, root, cache);
+    createBranch(path, root, translations, cache);
   });
 
   return root;

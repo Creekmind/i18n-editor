@@ -1,10 +1,18 @@
 <template>
   <div class="i18n-tree-node" :class="{ 'has-children': hasChildren(), 'active': node.active }" @mouseover.stop="onMouseOver" @mouseout.stop="onMouseOut" @click.stop="onClick()" v-if="node">
     <div class="hover" v-if="hover"></div>
-    <span class="title">{{ node.name }}</span>
+    <span class="title">
+      <slot :node="node" :data="node.data">
+        {{ node.name }}
+      </slot>
+    </span>
 
     <div class="i18n-tree-node-child" v-for="child in node.children" :key="child.name">
-      <tree-node :node="child" @nodeClick="onClick($event)"></tree-node>
+      <tree-node :node="child" @nodeClick="onClick($event)">
+        <template v-for="(_, name) in $slots" v-slot:[name]="slotData" >
+          <slot :name="name" v-bind="slotData" />
+        </template>
+      </tree-node>
     </div>
   </div>
 
