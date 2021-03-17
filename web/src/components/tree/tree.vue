@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <tree-node class="tree-root" :node="root" @nodeClick="onNodeClick">
+  <div ref="treeRef" class="px-4">
+    <tree-node class="tree-root" :node="root" :treeWidth="$refs.treeRef?.clientWidth" @nodeClick="onNodeClick">
       <template v-for="(_, name) in $slots" v-slot:[name]="slotData" >
         <slot :name="name" v-bind="slotData" />
       </template>

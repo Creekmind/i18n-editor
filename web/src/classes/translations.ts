@@ -14,14 +14,4 @@ export class Translations extends DataObject {
     this.projectID = projectID;
     this.translations = translations;
   }
-
-  hasWarnings(): boolean {
-    for (const translation of this.translations) {
-      if (!translation.value) {
-        return true;
-      }
-    }
-
-    return false;
-  }
 }
