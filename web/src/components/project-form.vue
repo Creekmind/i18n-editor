@@ -20,7 +20,7 @@
 
         <input class="cm-input cm-fluid" placeholder="Search..." v-model="searchQuery">
 
-        <i18n-tree :root="root" class="my-12 cm-flex-1" @nodeClick="onNodeClick">
+        <i18n-tree :root="root" class="my-12 cm-flex-1 keys__tree" @nodeClick="onNodeClick">
           <template v-slot:default="slotProps">
             <div class="cm-flex cm-ai-center">
               <div class="cm-flex-1">
@@ -174,6 +174,10 @@ export default class ProjectForm extends Vue {
   }
 
   hasWarnings(key: Translations) {
+    if (!key) {
+      return false;
+    }
+
     if (key.translations.length < this.project.languages.length) {
       return true;
     }
@@ -240,6 +244,7 @@ export default class ProjectForm extends Vue {
 
   .project-workspace {
     border-top: 1px solid $secondaryDark;
+    overflow: hidden;
 
     .warning {
       width: 12px;
@@ -259,6 +264,11 @@ export default class ProjectForm extends Vue {
 
   .keys {
     flex-basis: 400px;
+
+    &__tree {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
   }
 
   .translations {
